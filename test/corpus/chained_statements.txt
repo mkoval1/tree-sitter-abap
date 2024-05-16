@@ -1,0 +1,26 @@
+==================
+chained data statement
+==================
+
+class cls implementation.
+  method meth.
+    data: x type t1,
+          y type t2.
+  endmethod.
+endclass.
+---
+(program
+  (class_implementation
+    (name)
+    (method_implementation
+      (name)
+      (method_body
+        (chained_variable_declaration
+          (variable
+            (name)
+            (complete_typing
+              (name)))
+          (variable
+            (name)
+            (complete_typing
+              (name))))))))
