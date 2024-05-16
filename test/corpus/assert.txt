@@ -1,0 +1,43 @@
+==================
+assert statement basic
+==================
+
+assert 1 = 1.
+
+---
+(source_file
+  (assert_statement
+    (comparison_expression
+      (numeric_literal)
+      (numeric_literal))))
+
+==================
+assert statement with checkpoint group
+==================
+
+assert id group condition 1 = 1.
+
+---
+(source_file
+  (assert_statement
+    (checkpoint_group
+      (identifier))
+    (comparison_expression
+      (numeric_literal)
+      (numeric_literal))))
+
+==================
+assert statement with checkpoint group and subkey
+==================
+
+assert id group subkey sub condition 1 = 1.
+
+---
+(source_file
+  (assert_statement
+    (checkpoint_group
+      (identifier))
+      (identifier)
+    (comparison_expression
+      (numeric_literal)
+      (numeric_literal))))

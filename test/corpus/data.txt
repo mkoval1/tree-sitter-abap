@@ -1,0 +1,141 @@
+==================
+variable declaration (data statement) basic
+==================
+
+data var type c.
+
+---
+(source_file
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type))))
+
+==================
+variable declaration with built-in character-like types
+==================
+
+data var type c.
+data var type n.
+data var type string.
+
+---
+(source_file
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type))))
+
+==================
+variable declaration with built-in numeric types
+==================
+
+data var type b.
+data var type s.
+data var type i.
+data var type int8.
+data var type p.
+data var type decfloat16.
+data var type decfloat34.
+data var type f.
+
+---
+(source_file
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type))))
+
+==================
+variable declaration with byte-like types
+==================
+
+data var type x.
+data var type xstring.
+
+---
+(source_file
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type))))
+
+==================
+variable declaration with date/time/timestamp types
+==================
+
+data var type d.
+data var type t.
+data var type utclong.
+
+---
+(source_file
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type)))
+  (data_statement
+    (variable
+      (identifier))
+    (type_declaration
+      (abap_type))))

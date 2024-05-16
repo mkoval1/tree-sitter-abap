@@ -1,0 +1,30 @@
+==================
+class definition basic
+==================
+
+class class definition.
+endclass.
+
+---
+(source_file
+  (class_definition
+    name: (class_name)))
+
+==================
+class name max length is 30 characters
+==================
+
+class caaaaaaaaaaaaaaaaaaaaaaaaaaaaaa definition.
+endclass.
+
+class cbbbbbbbbbbbbbbbbbbbbbbbbbbbbb definition.
+endclass.
+
+---
+(source_file
+  (class_definition
+    name: (class_name)
+    (ERROR
+      (UNEXPECTED ' ')))
+  (class_definition
+    name: (class_name)))

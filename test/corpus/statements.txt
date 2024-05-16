@@ -1,0 +1,63 @@
+==================
+write statement
+==================
+
+WRITE 'Hello World!'.
+
+---
+
+(source_file
+  (write_statement
+    (character_literal)))
+
+==================
+clear statement
+==================
+
+CLEAR data_object.
+
+---
+
+(source_file
+  (clear_statement
+    (identifier)))
+
+==================
+assignment
+==================
+
+a = b.
+
+---
+
+(source_file
+  (assignment
+    left: (identifier)
+    right: (identifier)))
+
+==================
+assignment expression
+==================
+
+a = b + c.
+a = b - c.
+a = b * c.
+
+---
+
+(source_file
+  (assignment
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier)))
+  (assignment
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier)))
+  (assignment
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
