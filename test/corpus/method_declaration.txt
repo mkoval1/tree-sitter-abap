@@ -63,19 +63,19 @@ endclass.
         importing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name))))
+            (type))))
       (method_declaration
         name: (name)
         importing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name))))
+            (type))))
       (method_declaration
         name: (name)
         importing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name)))))))
+            (type)))))))
 
 ==================
 TODO: method declaration default parameters
@@ -113,25 +113,25 @@ endclass.
         importing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name))))
+            (type))))
       (method_declaration
         name: (name)
         exporting_parameters: (method_parameters
           (name)
           (complete_typing
-            (name))))
+            (type))))
       (method_declaration
         name: (name)
         changing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name))))
+            (type))))
       (method_declaration
         name: (name)
         (returning_parameter
           (name)
           (complete_typing
-            (name)))))))
+            (type)))))))
 
 ==================
 TODO: method declaration prefered parameters
@@ -207,7 +207,7 @@ endclass.
         importing_parameters: (method_parameters
           (name)
           (complete_typing
-            (name)))
+            (type)))
         raising: (name)))))
 
 ==================

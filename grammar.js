@@ -10,7 +10,14 @@ module.exports = grammar({
         $.class_implementation,
         $.class_publication,
         $.class_local_friend_publication,
-        $.interface_declaration
+        $.interface_declaration,
+        $.variable_declaration,
+        $.chained_variable_declaration,
+        $.chained_structure_declaration,
+        $.comment,
+        $.loop,
+        $.field_symbol_declaration,
+        $.chained_field_symbol_declaration
       ),
 
     class_declaration: $ =>
@@ -190,7 +197,13 @@ module.exports = grammar({
       ),
 
     method_body: $ =>
-      repeat1(choice($.variable_declaration, $.chained_variable_declaration)),
+      repeat1(
+        choice(
+          $.variable_declaration,
+          $.chained_variable_declaration,
+          $.chained_structure_declaration
+        )
+      ),
 
     class_publication: $ =>
       seq(
@@ -256,7 +269,7 @@ module.exports = grammar({
     generic_typing: $ =>
       choice(seq(/type/i, $.generic_type), seq(/like/i, $.name)),
 
-    complete_typing: $ => seq(/type/i, $.name),
+    complete_typing: $ => seq(/type/i, alias($.name, $.type)),
 
     generic_type: $ => choice(/any/i, /any table/i),
 
@@ -268,6 +281,59 @@ module.exports = grammar({
 
     variable: $ => seq($.name, $._typing),
 
+    chained_structure_declaration: $ =>
+      seq(
+        /data/i,
+        ":",
+        /begin/i,
+        /of/i,
+        alias($.name, $.strucure_name),
+        optional(/read-only/i),
+        ",",
+        alias(repeat1($.structure_component), $.structure_components),
+        /end/i,
+        /of/i,
+        alias($.name, $.strucure_name),
+        "."
+      ),
+
+    structure_component: $ => seq($.name, $._typing, ","),
+
+    field_symbol_declaration: $ =>
+      seq(/field-symbols/i, alias($.field_symbol_name, $.name), $._typing, "."),
+
+    chained_field_symbol_declaration: $ =>
+      seq(
+        /field-symbols/i,
+        ":",
+        repeat1(choice($.field_symbol, seq(",", $.field_symbol))),
+        "."
+      ),
+
+    field_symbol: $ => seq(alias($.field_symbol_name, $.name), $._typing),
+
+    loop: $ =>
+      seq(
+        /loop/i,
+        /at/i,
+        alias($.name, $.itab),
+        choice(
+          seq(/into/i, alias($.name, $.result)),
+          seq(/assigning/i, alias($.field_symbol_name, $.result))
+        ),
+        ".",
+        optional($.loop_body),
+        /endloop/i,
+        "."
+      ),
+
+    // FIXME: not all statements are allowed in loop body
+    loop_body: $ => $._statement,
+
+    comment: $ => choice(seq("*", /[^\n]*/), seq(/"/, /[^\n]*/)),
+
     name: $ => /[a-zA-Z_][a-zA-Z0-9_]{0,29}/i,
+
+    field_symbol_name: $ => /<[a-zA-Z0-9_]{0,28}>/i,
   },
 });

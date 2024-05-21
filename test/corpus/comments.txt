@@ -1,0 +1,53 @@
+==================
+single line comment
+==================
+
+* This is a comment
+
+---
+(program
+  (comment))
+
+==================
+statement after line comment
+==================
+
+* This is a comment
+*&This is still a comment
+data a type b.
+
+---
+
+(program
+  (comment)
+  (comment)
+  (variable_declaration
+    (name)
+    (complete_typing
+      (type))))
+
+==================
+end of line comment
+==================
+
+" This is a comment
+"This is a comment
+
+---
+(program
+  (comment)
+  (comment))
+
+==================
+end of line comment within statement
+==================
+
+data a type b. " This is a comment
+
+---
+(program
+  (variable_declaration
+    (name)
+    (complete_typing
+      (type)))
+  (comment))

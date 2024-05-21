@@ -19,8 +19,57 @@ endclass.
           (variable
             (name)
             (complete_typing
-              (name)))
+              (type)))
           (variable
             (name)
             (complete_typing
-              (name))))))))
+              (type))))))))
+
+==================
+declaring a structure
+==================
+
+data: begin of struc,
+        a type t1,
+        b type t2,
+        c type t3,
+      end of struc.
+
+---
+(program
+  (chained_structure_declaration
+    (strucure_name)
+    (structure_components
+      (structure_component
+        (name)
+        (complete_typing
+          (type)))
+      (structure_component
+        (name)
+        (complete_typing
+          (type)))
+      (structure_component
+        (name)
+        (complete_typing
+          (type))))
+    (strucure_name)))
+
+==================
+chained field-symbols declaration
+==================
+
+field-symbols:  <fs1> type a,
+                <fs2> type b.
+
+---
+
+(program
+  (chained_field_symbol_declaration
+        (field_symbol
+          (name)
+          (complete_typing
+            (type)))
+        (field_symbol
+          (name)
+          (complete_typing
+            (type)))))

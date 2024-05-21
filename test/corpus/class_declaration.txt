@@ -49,17 +49,17 @@ endclass.
       (variable_declaration
         name: (name)
         typing: (complete_typing
-          (name))))
+          (type))))
     (protected_section
       (variable_declaration
         name: (name)
         typing: (complete_typing
-          (name))))
+          (type))))
     (private_section
       (variable_declaration
         name: (name)
         typing: (complete_typing
-          (name))))))
+          (type))))))
 
 ==================
 class declaration with class options
