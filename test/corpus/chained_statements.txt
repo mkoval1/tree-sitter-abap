@@ -18,11 +18,11 @@ endclass.
         (chained_variable_declaration
           (variable
             (name)
-            (complete_typing
+            (typing
               (type)))
           (variable
             (name)
-            (complete_typing
+            (typing
               (type))))))))
 
 ==================

@@ -1,6 +1,8 @@
 module.exports = grammar({
   name: "abap",
 
+  word: $ => $.name,
+
   rules: {
     program: $ => repeat($._statement),
 
@@ -15,9 +17,18 @@ module.exports = grammar({
         $.chained_variable_declaration,
         $.chained_structure_declaration,
         $.comment,
-        $.loop,
+        $.loop_statement,
         $.field_symbol_declaration,
-        $.chained_field_symbol_declaration
+        $.chained_field_symbol_declaration,
+        $.exit_statement,
+        $.continue_statement,
+        $.report_statement,
+        $.if_statement,
+        $.return_statement,
+        $.check_statement,
+        $.assignment,
+        $.select_statement_obsolete,
+        $.read_table_statement
       ),
 
     class_declaration: $ =>
@@ -273,13 +284,69 @@ module.exports = grammar({
 
     generic_type: $ => choice(/any/i, /any table/i),
 
+    _data_object_typing: $ =>
+      choice(
+        //$._data_object_typing_built_in,
+        $._data_object_typing_normal,
+        //$._data_object_typing_enumerated,
+        $._data_object_typing_reference,
+        $._data_object_typing_itabs
+        //$._data_object_typing_ranges
+      ),
+
+    _data_object_typing_normal: $ =>
+      seq(
+        choice(
+          seq(/type/i, optional(seq(/line/i, /of/i)), alias($.name, $.type)),
+          seq(/like/i, optional(seq(/line/i, /of/i)), $.name)
+        ),
+        optional(seq(/value/i, choice($.name, seq(/is/i, /initial/i)))),
+        optional(/read-only/i)
+      ),
+
+    _data_object_typing_reference: $ =>
+      seq(
+        choice(
+          seq(/type/i, /ref/i, /to/i, alias($.name, $.type)),
+          seq(/like/i, /ref/i, /to/i, $.name)
+        ),
+        optional(seq(/value/i, /is/i, /initial/i)),
+        optional(/read-only/i)
+      ),
+
+    _data_object_typing_itabs: $ =>
+      seq(
+        choice(
+          seq(
+            /type/i,
+            choice(optional(/standard/i), /sorted/i, /hashed/i),
+            /table/i,
+            /of/i,
+            optional(seq(/ref/i, /to/i)),
+            alias($.name, $.type)
+          ),
+          seq(
+            /like/i,
+            choice(optional(/standard/i), /sorted/i, /hashed/i),
+            /table/i,
+            /of/i,
+            $.name
+          )
+        )
+      ),
+
     variable_declaration: $ =>
-      seq(/data/i, field("name", $.name), field("typing", $._typing), "."),
+      seq(
+        /data/i,
+        field("name", $.name),
+        field("typing", alias($._data_object_typing, $.typing)),
+        "."
+      ),
 
     chained_variable_declaration: $ =>
       seq(/data/i, ":", repeat1(choice($.variable, seq(",", $.variable))), "."),
 
-    variable: $ => seq($.name, $._typing),
+    variable: $ => seq($.name, alias($._data_object_typing, $.typing)),
 
     chained_structure_declaration: $ =>
       seq(
@@ -312,7 +379,7 @@ module.exports = grammar({
 
     field_symbol: $ => seq(alias($.field_symbol_name, $.name), $._typing),
 
-    loop: $ =>
+    loop_statement: $ =>
       seq(
         /loop/i,
         /at/i,
@@ -321,14 +388,190 @@ module.exports = grammar({
           seq(/into/i, alias($.name, $.result)),
           seq(/assigning/i, alias($.field_symbol_name, $.result))
         ),
+        optional(
+          seq(
+            optional(seq(/from/i, $._general_expression_position)),
+            optional(seq(/to/i, $._general_expression_position)),
+            optional(seq(/step/i, $._general_expression_position))
+          )
+        ),
         ".",
-        optional($.loop_body),
+        // FIXME: not all statements are allowed in loop body
+        repeat($._statement),
         /endloop/i,
         "."
       ),
 
-    // FIXME: not all statements are allowed in loop body
-    loop_body: $ => $._statement,
+    exit_statement: $ => seq(/exit/i, "."),
+
+    continue_statement: $ => seq(/continue/i, "."),
+
+    return_statement: $ => seq(/return/i, "."),
+
+    report_statement: $ => seq(kw("report"), $.name, "."),
+
+    if_statement: $ =>
+      seq(
+        /if/i,
+        $._logical_expression,
+        ".",
+        //FIXME: not all statements are allowed in statement_block
+        repeat($._statement),
+        /endif/i,
+        "."
+      ),
+
+    check_statement: $ => seq(/check/i, $._logical_expression, "."),
+
+    _logical_expression: $ =>
+      choice(
+        $.comparison_expression,
+        prec.right(4, seq(/not/i, $._logical_expression)),
+        prec.left(1, seq($._logical_expression, /or/i, $._logical_expression)),
+        prec.left(2, seq($._logical_expression, /and/i, $._logical_expression))
+      ),
+
+    comparison_expression: $ =>
+      seq(
+        $._general_expression_position,
+        choice("=", /eq/i, "<>", /ne/i),
+        $._general_expression_position
+      ),
+
+    _general_expression_position: $ =>
+      choice($.numeric_literal, $._data_object, $._calculation_expression),
+
+    _calculation_expression: $ => choice($.arithmetic_expression),
+
+    arithmetic_expression: $ =>
+      choice(
+        prec.left(
+          1,
+          seq(
+            $._general_expression_position,
+            "+",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          1,
+          seq(
+            $._general_expression_position,
+            "-",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          2,
+          seq(
+            $._general_expression_position,
+            "*",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          2,
+          seq(
+            $._general_expression_position,
+            "/",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          2,
+          seq(
+            $._general_expression_position,
+            "DIV",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          2,
+          seq(
+            $._general_expression_position,
+            "MOD",
+            $._general_expression_position
+          )
+        ),
+        prec.left(
+          3,
+          seq(
+            $._general_expression_position,
+            "**",
+            $._general_expression_position
+          )
+        )
+      ),
+
+    select_statement_obsolete: $ =>
+      seq(
+        /select/i,
+        $.select_list,
+        optional(seq(/up/i, /to/i, $._general_expression_position, /rows/i)),
+        /from/i,
+        alias($.name, $.data_source),
+        alias($._select_target, $.target),
+        optional(
+          seq(optional($.for_all_entries), alias($._where_clause, $.where))
+        ),
+        "."
+      ),
+
+    select_list: $ => choice("*"),
+
+    _select_target: $ =>
+      choice(
+        seq(/into/i, " ( ", $.name, repeat(seq(",", $.name)), " ) "),
+        seq(/into/i, optional(seq(/corresponding/i, /fields/i, /of/i)), $.name),
+        seq(
+          choice(/into/i, /appending/i),
+          optional(seq(/corresponding/i, /fields/i, /of/i)),
+          /table/i,
+          $.name
+        )
+      ),
+
+    for_all_entries: $ => seq(/for/i, /all/i, /entries/i, /in/i, $.name),
+
+    _where_clause: $ => seq(/where/i, $._sql_condition),
+
+    _sql_condition: $ => $._logical_expression,
+
+    read_table_statement: $ =>
+      seq(
+        /read/i,
+        /table/i,
+        $.name,
+        choice(
+          seq($.line_spec, $._read_table_result),
+          seq($._read_table_result, $.line_spec)
+        ),
+        "."
+      ),
+
+    line_spec: $ =>
+      seq(
+        /with/i,
+        /key/i,
+        repeat1(seq($.name, "=", $._general_expression_position)),
+        optional(seq(/binary/i, /search/i))
+      ),
+
+    _read_table_result: $ =>
+      choice(seq(/into/i, $.name), seq(/transporting/i, /no/i, /fields/i)),
+
+    _data_object: $ =>
+      choice($.name, $.field_symbol_name, $.structured_data_object),
+
+    structured_data_object: $ =>
+      seq(
+        alias(choice($.name, $.field_symbol_name), $.structure_name),
+        repeat1(seq(token.immediate("-"), alias($.name, $.component_name)))
+      ),
+
+    assignment: $ => seq($.name, "=", $._general_expression_position, "."),
+
+    numeric_literal: $ => /[0-9]+/,
 
     comment: $ => choice(seq("*", /[^\n]*/), seq(/"/, /[^\n]*/)),
 
@@ -337,3 +580,12 @@ module.exports = grammar({
     field_symbol_name: $ => /<[a-zA-Z0-9_]{0,28}>/i,
   },
 });
+
+
+/**
+ * ABAP word/keyword
+ * @param {string} word - ABAP word as string
+ */
+function kw(word){
+  return alias(new RegExp(word, "i"), word)
+}

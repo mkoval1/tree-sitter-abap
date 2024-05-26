@@ -48,17 +48,17 @@ endclass.
     (public_section
       (variable_declaration
         name: (name)
-        typing: (complete_typing
+        typing: (typing
           (type))))
     (protected_section
       (variable_declaration
         name: (name)
-        typing: (complete_typing
+        typing: (typing
           (type))))
     (private_section
       (variable_declaration
         name: (name)
-        typing: (complete_typing
+        typing: (typing
           (type))))))
 
 ==================
@@ -138,4 +138,16 @@ endclass.
 
 ---
 
+(program)
+
+==================
+class declaration sample
+==================
+
+CLASS zcl_log DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC . "Maurício Lauffer
+
+---
 (program)

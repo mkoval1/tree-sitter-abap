@@ -23,7 +23,7 @@ data a type b.
   (comment)
   (variable_declaration
     (name)
-    (complete_typing
+    (typing
       (type))))
 
 ==================
@@ -48,6 +48,6 @@ data a type b. " This is a comment
 (program
   (variable_declaration
     (name)
-    (complete_typing
+    (typing
       (type)))
   (comment))
