@@ -3,6 +3,8 @@ module.exports = grammar({
 
   word: $ => $.name,
 
+  extras: $ => [/\s/,  $.comment],
+
   rules: {
     program: $ => repeat($._statement),
 
@@ -16,7 +18,7 @@ module.exports = grammar({
         $.variable_declaration,
         $.chained_variable_declaration,
         $.chained_structure_declaration,
-        $.comment,
+        alias($.bol_comment, $.comment),
         $.loop_statement,
         $.field_symbol_declaration,
         $.chained_field_symbol_declaration,
@@ -28,7 +30,10 @@ module.exports = grammar({
         $.check_statement,
         $.assignment,
         $.select_statement_obsolete,
-        $.read_table_statement
+        $.read_table_statement,
+        $.try_catch_statement,
+        $.write_statement,
+        $.chained_write_statement
       ),
 
     class_declaration: $ =>
@@ -37,15 +42,12 @@ module.exports = grammar({
         field("name", $.name),
         kw("definition"),
         optional(kw("public")),
-        optional(seq(kw("inheriting"), kw("from"), field("superclass", $.name))),
+        optional(
+          seq(kw("inheriting"), kw("from"), field("superclass", $.name))
+        ),
         optional(kw("abstract")),
         optional(kw("final")),
-        optional(
-          seq(
-            kw("create"),
-            choice(kw("public"), kw("protected"), kw("private"))
-          )
-        ),
+        optional($._create_addition),
         optional(seq(kw("shared"), kw("memory"), kw("enabled"))),
         optional(
           seq(
@@ -61,6 +63,9 @@ module.exports = grammar({
         kw("endclass"),
         "."
       ),
+
+    _create_addition: $ =>
+      seq(kw("create"), choice(kw("public"), kw("protected"), kw("private"))),
 
     public_section: $ =>
       seq(kw("public"), kw("section"), ".", repeat($._class_components)),
@@ -161,7 +166,13 @@ module.exports = grammar({
       seq(kw("class-methods"), kw("class_constructor"), "."),
 
     method_redefinition: $ =>
-      seq(kw("methods"), $.name, optional(kw("final")), kw("redefinition"), "."),
+      seq(
+        kw("methods"),
+        $.name,
+        optional(kw("final")),
+        kw("redefinition"),
+        "."
+      ),
 
     class_method_declaration_class: $ =>
       seq(
@@ -302,10 +313,16 @@ module.exports = grammar({
     _data_object_typing_normal: $ =>
       seq(
         choice(
-          seq(kw("type"), optional(seq(kw("line"), kw("of"))), alias($.name, $.type)),
+          seq(
+            kw("type"),
+            optional(seq(kw("line"), kw("of"))),
+            alias($.name, $.type)
+          ),
           seq(kw("like"), optional(seq(kw("line"), kw("of"))), $.name)
         ),
-        optional(seq(kw("value"), choice($.name, seq(kw("is"), kw("initial"))))),
+        optional(
+          seq(kw("value"), choice($.name, seq(kw("is"), kw("initial"))))
+        ),
         optional(kw("read-only"))
       ),
 
@@ -460,7 +477,12 @@ module.exports = grammar({
       ),
 
     _general_expression_position: $ =>
-      choice($.numeric_literal, $._data_object, $._calculation_expression),
+      choice(
+        $.numeric_literal,
+        $.character_literal,
+        $._data_object,
+        $._calculation_expression
+      ),
 
     _calculation_expression: $ => choice($.arithmetic_expression),
 
@@ -528,7 +550,9 @@ module.exports = grammar({
       seq(
         kw("select"),
         $.select_list,
-        optional(seq(kw("up"), kw("to"), $._general_expression_position, kw("rows"))),
+        optional(
+          seq(kw("up"), kw("to"), $._general_expression_position, kw("rows"))
+        ),
         kw("from"),
         alias($.name, $.data_source),
         alias($._select_target, $.target),
@@ -543,7 +567,11 @@ module.exports = grammar({
     _select_target: $ =>
       choice(
         seq(kw("into"), " ( ", $.name, repeat(seq(",", $.name)), " ) "),
-        seq(kw("into"), optional(seq(kw("corresponding"), kw("fields"), kw("of"))), $.name),
+        seq(
+          kw("into"),
+          optional(seq(kw("corresponding"), kw("fields"), kw("of"))),
+          $.name
+        ),
         seq(
           choice(kw("into"), kw("appending")),
           optional(seq(kw("corresponding"), kw("fields"), kw("of"))),
@@ -552,7 +580,8 @@ module.exports = grammar({
         )
       ),
 
-    for_all_entries: $ => seq(kw("for"), kw("all"), kw("entries"), kw("in"), $.name),
+    for_all_entries: $ =>
+      seq(kw("for"), kw("all"), kw("entries"), kw("in"), $.name),
 
     _where_clause: $ => seq(kw("where"), $._sql_condition),
 
@@ -579,7 +608,10 @@ module.exports = grammar({
       ),
 
     _read_table_result: $ =>
-      choice(seq(kw("into"), $.name), seq(kw("transporting"), kw("no"), kw("fields"))),
+      choice(
+        seq(kw("into"), $.name),
+        seq(kw("transporting"), kw("no"), kw("fields"))
+      ),
 
     _data_object: $ =>
       choice($.name, $.field_symbol_name, $.structured_data_object),
@@ -592,9 +624,52 @@ module.exports = grammar({
 
     assignment: $ => seq($.name, "=", $._general_expression_position, "."),
 
+    try_catch_statement: $ =>
+      seq(
+        kw("try"),
+        ".",
+        optional($.try_block),
+        repeat($.catch_statement),
+        kw("endtry"),
+        "."
+      ),
+
+    try_block: $ => repeat1($._statement),
+
+    catch_statement: $ =>
+      seq(
+        kw("catch"),
+        field("exception", $.name),
+        ".",
+        optional($.catch_block)
+      ),
+
+    catch_block: $ => repeat1($._statement),
+
+    write_statement: $ =>
+      seq(kw("write"), optional("/"), $._general_expression_position, "."),
+
+    chained_write_statement: $ =>
+      seq(
+        kw("write"),
+        ":",
+        optional("/"),
+        repeat1(
+          choice(
+            $._general_expression_position,
+            seq(",", $._general_expression_position)
+          )
+        ),
+        "."
+      ),
+
     numeric_literal: $ => /[0-9]+/,
 
-    comment: $ => choice(seq("*", /[^\n]*/), seq(/"/, /[^\n]*/)),
+    character_literal: $ => /'[^']+'/,
+
+    comment: $ => seq('"', /[^\n]*/),
+
+    bol_comment: $ => seq("*", /[^\n]*/),
 
     name: $ => /[a-zA-Z_][a-zA-Z0-9_]{0,29}/i,
 
@@ -604,7 +679,7 @@ module.exports = grammar({
 
 /**
  * ABAP word/keyword
- * @param {string} word - ABAP word as string
+ * @param {string} word ABAP word as string
  */
 function kw(word) {
   return alias(new RegExp(word, "i"), word);

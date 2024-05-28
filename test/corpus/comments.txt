@@ -39,15 +39,37 @@ end of line comment
   (comment))
 
 ==================
-end of line comment within statement
+end of line comment on same line as statement
 ==================
 
 data a type b. " This is a comment
 
 ---
+
 (program
   (variable_declaration
     (name)
     (typing
       (type)))
   (comment))
+
+==================
+end of line comment within chained statement
+==================
+
+data: a type b, " This is a comment
+      c type d. 
+
+---
+
+(program
+  (chained_variable_declaration
+    (variable
+      (name)
+      (typing
+        (type)))
+    (comment)
+    (variable
+      (name)
+      (typing
+        (type)))))

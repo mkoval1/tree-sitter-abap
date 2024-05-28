@@ -7,6 +7,7 @@
  "at"
  "begin"
  "binary"
+ "catch"
  "changing"
  "check"
  "class"
@@ -25,6 +26,7 @@
  "endinterface"
  "endloop"
  "endmethod"
+ "endtry"
  "entries"
  "eq"
  "exceptions"
@@ -84,11 +86,13 @@
  "table"
  "to"
  "transporting"
+ "try"
  "type"
  "up"
  "value"
  "where"
  "with"
+ "write"
  ] @keyword
 
 "return" @keyword.return

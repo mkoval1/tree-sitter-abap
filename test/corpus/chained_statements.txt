@@ -73,3 +73,16 @@ field-symbols:  <fs1> type a,
           (name)
           (complete_typing
             (type)))))
+
+==================
+chained write statement
+==================
+
+write: / 'hello', 'world'.
+
+---
+
+(program
+  (chained_write_statement
+    (character_literal)
+    (character_literal)))
