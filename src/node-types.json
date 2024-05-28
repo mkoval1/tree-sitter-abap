@@ -70,6 +70,236 @@
     }
   },
   {
+    "type": "call_method",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "parameter_binding",
+            "named": true
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          },
+          {
+            "type": "receiving",
+            "named": false
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "call_method_instance",
+    "named": true,
+    "fields": {
+      "instance_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "method_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "parameter_binding",
+            "named": true
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          },
+          {
+            "type": "receiving",
+            "named": false
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "call_method_static",
+    "named": true,
+    "fields": {
+      "class_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "method_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "parameter_binding",
+            "named": true
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          },
+          {
+            "type": "receiving",
+            "named": false
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "catch_block",
     "named": true,
     "fields": {},
@@ -79,6 +309,18 @@
       "types": [
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
           "named": true
         },
         {
@@ -759,6 +1001,18 @@
           "named": true
         },
         {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
+          "named": true
+        },
+        {
           "type": "chained_field_symbol_declaration",
           "named": true
         },
@@ -940,6 +1194,18 @@
         },
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
           "named": true
         },
         {
@@ -1261,6 +1527,67 @@
     }
   },
   {
+    "type": "parameter_binding",
+    "named": true,
+    "fields": {
+      "actual_parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      },
+      "formal_parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "parameter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_binding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "private_section",
     "named": true,
     "fields": {},
@@ -1305,6 +1632,18 @@
       "types": [
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
           "named": true
         },
         {
@@ -1675,6 +2014,18 @@
           "named": true
         },
         {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
+          "named": true
+        },
+        {
           "type": "chained_field_symbol_declaration",
           "named": true
         },
@@ -1943,6 +2294,10 @@
     "named": false
   },
   {
+    "type": "->",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -1960,6 +2315,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "=>",
     "named": false
   },
   {
@@ -2299,6 +2658,10 @@
     "named": false
   },
   {
+    "type": "receiving",
+    "named": false
+  },
+  {
     "type": "redefinition",
     "named": false
   },
@@ -2388,11 +2751,11 @@
   },
   {
     "type": "type",
-    "named": false
+    "named": true
   },
   {
     "type": "type",
-    "named": true
+    "named": false
   },
   {
     "type": "up",

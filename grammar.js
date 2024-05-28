@@ -3,7 +3,7 @@ module.exports = grammar({
 
   word: $ => $.name,
 
-  extras: $ => [/\s/,  $.comment],
+  extras: $ => [/\s/, $.comment],
 
   rules: {
     program: $ => repeat($._statement),
@@ -33,7 +33,10 @@ module.exports = grammar({
         $.read_table_statement,
         $.try_catch_statement,
         $.write_statement,
-        $.chained_write_statement
+        $.chained_write_statement,
+        $.call_method,
+        $.call_method_static,
+        $.call_method_instance
       ),
 
     class_declaration: $ =>
@@ -660,6 +663,85 @@ module.exports = grammar({
             seq(",", $._general_expression_position)
           )
         ),
+        "."
+      ),
+
+    call_method: $ =>
+      seq(
+        field("name", $.name),
+        token.immediate("("),
+        field(
+          "parameters",
+          optional(
+            choice(
+              $._general_expression_position,
+              $.parameter_list,
+              $._explicit_parameter_list
+            )
+          )
+        ),
+        ")",
+        "."
+      ),
+
+    parameter_list: $ => repeat1($.parameter_binding),
+
+    _explicit_parameter_list: $ =>
+      seq(
+        repeat1(
+          choice(
+            seq(kw("exporting"), $.parameter_list),
+            seq(kw("importing"), $.parameter_list),
+            seq(kw("changing"), $.parameter_list),
+            seq(kw("receiving"), $.parameter_binding)
+          )
+        )
+      ),
+
+    parameter_binding: $ =>
+      seq(
+        field("formal_parameter", $.name),
+        "=",
+        field("actual_parameter", $._general_expression_position)
+      ),
+
+    call_method_static: $ =>
+      seq(
+        field("class_name", $.name),
+        token.immediate("=>"),
+        field("method_name", $.name),
+        token.immediate("("),
+        field(
+          "parameters",
+          optional(
+            choice(
+              $._general_expression_position,
+              $.parameter_list,
+              $._explicit_parameter_list
+            )
+          )
+        ),
+        ")",
+        "."
+      ),
+
+    call_method_instance: $ =>
+      seq(
+        field("instance_name", $.name),
+        token.immediate("->"),
+        field("method_name", $.name),
+        token.immediate("("),
+        field(
+          "parameters",
+          optional(
+            choice(
+              $._general_expression_position,
+              $.parameter_list,
+              $._explicit_parameter_list
+            )
+          )
+        ),
+        ")",
         "."
       ),
 
