@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
@@ -47,6 +51,10 @@
           "named": true
         },
         {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
@@ -65,8 +73,91 @@
         {
           "type": "structured_data_object",
           "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "attribute_access_static",
+    "named": true,
+    "fields": {
+      "attribute": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bol_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "call_function",
+    "named": true,
+    "fields": {
+      "exceptions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "exception_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "changing",
+            "named": false
+          },
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "importing",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -89,6 +180,10 @@
         "types": [
           {
             "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "attribute_access_static",
             "named": true
           },
           {
@@ -172,6 +267,10 @@
             "named": true
           },
           {
+            "type": "attribute_access_static",
+            "named": true
+          },
+          {
             "type": "changing",
             "named": false
           },
@@ -252,6 +351,10 @@
             "named": true
           },
           {
+            "type": "attribute_access_static",
+            "named": true
+          },
+          {
             "type": "changing",
             "named": false
           },
@@ -312,6 +415,10 @@
           "named": true
         },
         {
+          "type": "call_function",
+          "named": true
+        },
+        {
           "type": "call_method",
           "named": true
         },
@@ -360,7 +467,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "clear_statement",
           "named": true
         },
         {
@@ -385,6 +492,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
           "named": true
         },
         {
@@ -503,6 +614,10 @@
       "types": [
         {
           "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "attribute_access_static",
           "named": true
         },
         {
@@ -779,9 +894,81 @@
     }
   },
   {
-    "type": "comment",
+    "type": "clear_statement",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
+          "type": "field_symbol_name",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "structured_data_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comp_spec",
+    "named": true,
+    "fields": {
+      "component": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "attribute_access_static",
+            "named": true
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "comparison_expression",
@@ -793,6 +980,10 @@
       "types": [
         {
           "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "attribute_access_static",
           "named": true
         },
         {
@@ -899,6 +1090,26 @@
     "fields": {}
   },
   {
+    "type": "eol_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "exception_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "return_code_binding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exit_statement",
     "named": true,
     "fields": {}
@@ -965,6 +1176,21 @@
     }
   },
   {
+    "type": "free_key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comp_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "generic_type",
     "named": true,
     "fields": {}
@@ -998,6 +1224,10 @@
       "types": [
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_function",
           "named": true
         },
         {
@@ -1049,7 +1279,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "clear_statement",
           "named": true
         },
         {
@@ -1078,6 +1308,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
           "named": true
         },
         {
@@ -1158,6 +1392,10 @@
           "named": true
         },
         {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
@@ -1194,6 +1432,14 @@
         },
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
+          "type": "call_function",
           "named": true
         },
         {
@@ -1249,7 +1495,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "clear_statement",
           "named": true
         },
         {
@@ -1290,6 +1536,10 @@
         },
         {
           "type": "numeric_literal",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
           "named": true
         },
         {
@@ -1340,6 +1590,26 @@
       "required": true,
       "types": [
         {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_function",
+          "named": true
+        },
+        {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "call_method_instance",
+          "named": true
+        },
+        {
+          "type": "call_method_static",
+          "named": true
+        },
+        {
           "type": "chained_structure_declaration",
           "named": true
         },
@@ -1348,7 +1618,43 @@
           "named": true
         },
         {
+          "type": "chained_write_statement",
+          "named": true
+        },
+        {
+          "type": "check_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
+          "named": true
+        },
+        {
+          "type": "read_table_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "select_statement_obsolete",
+          "named": true
+        },
+        {
+          "type": "try_catch_statement",
+          "named": true
+        },
+        {
           "type": "variable_declaration",
+          "named": true
+        },
+        {
+          "type": "write_statement",
           "named": true
         }
       ]
@@ -1539,6 +1845,10 @@
             "named": true
           },
           {
+            "type": "attribute_access_static",
+            "named": true
+          },
+          {
             "type": "character_literal",
             "named": true
           },
@@ -1635,6 +1945,10 @@
           "named": true
         },
         {
+          "type": "call_function",
+          "named": true
+        },
+        {
           "type": "call_method",
           "named": true
         },
@@ -1683,7 +1997,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "clear_statement",
           "named": true
         },
         {
@@ -1708,6 +2022,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
           "named": true
         },
         {
@@ -1812,6 +2130,36 @@
     }
   },
   {
+    "type": "raise_exception_statement",
+    "named": true,
+    "fields": {
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "exporting",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "read_table_statement",
     "named": true,
     "fields": {},
@@ -1843,6 +2191,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "return_code_binding",
+    "named": true,
+    "fields": {
+      "exception": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "return_code": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "numeric_literal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1884,6 +2258,10 @@
       "types": [
         {
           "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "attribute_access_static",
           "named": true
         },
         {
@@ -1987,6 +2365,60 @@
     }
   },
   {
+    "type": "table_expression",
+    "named": true,
+    "fields": {
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "line_spec": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_expression",
+            "named": true
+          },
+          {
+            "type": "attribute_access_static",
+            "named": true
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "field_symbol_name",
+            "named": true
+          },
+          {
+            "type": "free_key",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "numeric_literal",
+            "named": true
+          },
+          {
+            "type": "structured_data_object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "target",
     "named": true,
     "fields": {},
@@ -2011,6 +2443,10 @@
       "types": [
         {
           "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "call_function",
           "named": true
         },
         {
@@ -2062,7 +2498,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "clear_statement",
           "named": true
         },
         {
@@ -2087,6 +2523,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "raise_exception_statement",
           "named": true
         },
         {
@@ -2231,6 +2671,10 @@
           "named": true
         },
         {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
@@ -2330,6 +2774,14 @@
     "named": false
   },
   {
+    "type": "[ ",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
     "type": "abstract",
     "named": false
   },
@@ -2366,6 +2818,10 @@
     "named": false
   },
   {
+    "type": "call",
+    "named": false
+  },
+  {
     "type": "catch",
     "named": false
   },
@@ -2391,6 +2847,10 @@
   },
   {
     "type": "class_constructor",
+    "named": false
+  },
+  {
+    "type": "clear",
     "named": false
   },
   {
@@ -2474,6 +2934,10 @@
     "named": false
   },
   {
+    "type": "exception",
+    "named": false
+  },
+  {
     "type": "exceptions",
     "named": false
   },
@@ -2515,6 +2979,10 @@
   },
   {
     "type": "from",
+    "named": false
+  },
+  {
+    "type": "function",
     "named": false
   },
   {
@@ -2643,6 +3111,10 @@
   },
   {
     "type": "public",
+    "named": false
+  },
+  {
+    "type": "raise",
     "named": false
   },
   {

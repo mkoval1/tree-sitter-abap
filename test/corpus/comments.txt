@@ -6,7 +6,7 @@ single line comment
 
 ---
 (program
-  (comment))
+  (bol_comment))
 
 ==================
 statement after line comment
@@ -19,8 +19,8 @@ data a type b.
 ---
 
 (program
-  (comment)
-  (comment)
+  (bol_comment)
+  (bol_comment)
   (variable_declaration
     (name)
     (typing
@@ -35,8 +35,8 @@ end of line comment
 
 ---
 (program
-  (comment)
-  (comment))
+  (eol_comment)
+  (eol_comment))
 
 ==================
 end of line comment on same line as statement
@@ -51,7 +51,7 @@ data a type b. " This is a comment
     (name)
     (typing
       (type)))
-  (comment))
+  (eol_comment))
 
 ==================
 end of line comment within chained statement
@@ -68,7 +68,7 @@ data: a type b, " This is a comment
       (name)
       (typing
         (type)))
-    (comment)
+    (eol_comment)
     (variable
       (name)
       (typing

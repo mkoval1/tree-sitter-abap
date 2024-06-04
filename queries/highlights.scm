@@ -102,6 +102,9 @@
  "or"
 ] @keyword.operator
 
-(comment) @comment
+[
+  (bol_comment)
+  (eol_comment)
+] @comment
 
 (numeric_literal) @number

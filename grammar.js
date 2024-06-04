@@ -3,7 +3,7 @@ module.exports = grammar({
 
   word: $ => $.name,
 
-  extras: $ => [/\s/, $.comment],
+  extras: $ => [/\s/, $.eol_comment, $.bol_comment],
 
   rules: {
     program: $ => repeat($._statement),
@@ -18,7 +18,6 @@ module.exports = grammar({
         $.variable_declaration,
         $.chained_variable_declaration,
         $.chained_structure_declaration,
-        alias($.bol_comment, $.comment),
         $.loop_statement,
         $.field_symbol_declaration,
         $.chained_field_symbol_declaration,
@@ -36,7 +35,10 @@ module.exports = grammar({
         $.chained_write_statement,
         $.call_method,
         $.call_method_static,
-        $.call_method_instance
+        $.call_method_instance,
+        $.call_function,
+        $.raise_exception_statement,
+        $.clear_statement
       ),
 
     class_declaration: $ =>
@@ -231,7 +233,21 @@ module.exports = grammar({
         choice(
           $.variable_declaration,
           $.chained_variable_declaration,
-          $.chained_structure_declaration
+          $.chained_structure_declaration,
+          $.if_statement,
+          $.return_statement,
+          $.check_statement,
+          $.assignment,
+          $.select_statement_obsolete,
+          $.read_table_statement,
+          $.try_catch_statement,
+          $.write_statement,
+          $.chained_write_statement,
+          $.call_method,
+          $.call_method_static,
+          $.call_method_instance,
+          $.call_function,
+          $.raise_exception_statement
         )
       ),
 
@@ -549,6 +565,39 @@ module.exports = grammar({
         )
       ),
 
+    _writeable_expression: $ =>
+      choice(
+        // inline declaration
+        // constructor expression
+        $.table_expression
+      ),
+
+    table_expression: $ =>
+      seq(
+        field("itab", $.name),
+        token.immediate("[ "),
+        //"[",
+        field(
+          "line_spec",
+          choice(
+            $._general_expression_position,
+            alias($._table_expression_free_key, $.free_key)
+            //alias($._table_expression_table_key, $.table_key)
+          )
+        ),
+        //token.immediate(" ]")
+        "]"
+      ),
+
+    _table_expression_free_key: $ => repeat1($.comp_spec),
+
+    comp_spec: $ =>
+      seq(
+        field("component", $.name),
+        "=",
+        field("operand", $._general_expression_position)
+      ),
+
     select_statement_obsolete: $ =>
       seq(
         kw("select"),
@@ -617,7 +666,12 @@ module.exports = grammar({
       ),
 
     _data_object: $ =>
-      choice($.name, $.field_symbol_name, $.structured_data_object),
+      choice(
+        $.name,
+        $.field_symbol_name,
+        $.structured_data_object,
+        $.attribute_access_static
+      ),
 
     structured_data_object: $ =>
       seq(
@@ -625,7 +679,20 @@ module.exports = grammar({
         repeat1(seq(token.immediate("-"), alias($.name, $.component_name)))
       ),
 
-    assignment: $ => seq($.name, "=", $._general_expression_position, "."),
+    attribute_access_static: $ =>
+      seq(
+        field("class", $.name),
+        token.immediate("=>"),
+        field("attribute", $.name)
+      ),
+
+    assignment: $ =>
+      seq(
+        choice($.name, $._writeable_expression),
+        "=",
+        $._general_expression_position,
+        "."
+      ),
 
     try_catch_statement: $ =>
       seq(
@@ -698,11 +765,21 @@ module.exports = grammar({
         )
       ),
 
+    parameter_list_exporting: $ =>
+      repeat1(alias($.parameter_binding_exporting, $.parameter_binding)),
+
     parameter_binding: $ =>
       seq(
         field("formal_parameter", $.name),
         "=",
         field("actual_parameter", $._general_expression_position)
+      ),
+
+    parameter_binding_exporting: $ =>
+      seq(
+        field("formal_parameter", $.name),
+        "=",
+        field("actual_parameter", $.name)
       ),
 
     call_method_static: $ =>
@@ -745,11 +822,56 @@ module.exports = grammar({
         "."
       ),
 
+    call_function: $ =>
+      seq(
+        kw("call"),
+        kw("function"),
+        field("name", $.character_literal),
+        field("parameters", optional($._function_parameter_list)),
+        field("exceptions", optional($.exception_list)),
+        "."
+      ),
+
+    _function_parameter_list: $ =>
+      repeat1(
+        choice(
+          seq(
+            kw("exporting"),
+            alias($.parameter_list_exporting, $.parameter_list)
+          ),
+          seq(kw("importing"), $.parameter_list),
+          seq(kw("changing"), $.parameter_list)
+        )
+      ),
+
+    exception_list: $ => seq(kw("exceptions"), repeat1($.return_code_binding)),
+
+    return_code_binding: $ =>
+      seq(
+        field("exception", $.name),
+        "=",
+        field("return_code", $.numeric_literal)
+      ),
+
+    raise_exception_statement: $ =>
+      seq(
+        kw("raise"),
+        kw("exception"),
+        kw("type"),
+        field("class", $.name),
+        optional(field("parameters", seq(kw("exporting"), $.parameter_list))),
+        "."
+      ),
+
+    clear_statement: $ => seq(kw("clear"), $._data_object, "."),
+
     numeric_literal: $ => /[0-9]+/,
 
     character_literal: $ => /'[^']+'/,
 
-    comment: $ => seq('"', /[^\n]*/),
+    comment: $ => choice($.eol_comment, $.bol_comment),
+
+    eol_comment: $ => seq('"', /[^\n]*/),
 
     bol_comment: $ => seq("*", /[^\n]*/),
 
