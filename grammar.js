@@ -144,7 +144,7 @@ module.exports = grammar({
         choice(
           seq(kw("value"), "(", $.name, ")"),
           seq(kw("reference"), "(", $.name, ")"),
-          $.name
+          $._operand
         ),
         $._typing,
         optional(choice(kw("optional"), seq(kw("default"), $.name)))
@@ -315,7 +315,11 @@ module.exports = grammar({
     generic_typing: $ =>
       choice(seq(kw("type"), $.generic_type), seq(kw("like"), $.name)),
 
-    complete_typing: $ => seq(kw("type"), alias($.name, $.type)),
+    complete_typing: $ =>
+      choice(
+        seq(kw("type"), alias($.name, $.type)),
+        seq(kw("type"), kw("ref"), kw("to"), alias($.name, $.type))
+      ),
 
     generic_type: $ => choice(kw("any"), seq(kw("any"), kw("table"))),
 
@@ -865,11 +869,21 @@ module.exports = grammar({
 
     clear_statement: $ => seq(kw("clear"), $._data_object, "."),
 
+    append_statement: $ =>
+      seq(
+        kw("append"),
+        field("line_spec", $.name),
+        kw("to"),
+        field("itab", $.name)
+      ),
+
+    _operand: $ => choice($._escaped_operand, $.name),
+
+    _escaped_operand: $ => seq("!", $.name),
+
     numeric_literal: $ => /[0-9]+/,
 
     character_literal: $ => /'[^']+'/,
-
-    comment: $ => choice($.eol_comment, $.bol_comment),
 
     eol_comment: $ => seq('"', /[^\n]*/),
 

@@ -1,0 +1,11 @@
+==================
+basic append statement
+==================
+
+append wa to itab.
+
+---
+(program
+  (append_statement
+    line_spec: (name)
+    itab: (name)))
