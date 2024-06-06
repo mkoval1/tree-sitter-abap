@@ -505,6 +505,10 @@
           "named": true
         },
         {
+          "type": "create_object_statement",
+          "named": true
+        },
+        {
           "type": "exit_statement",
           "named": true
         },
@@ -566,6 +570,16 @@
       "exception": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "oref": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "name",
@@ -1120,6 +1134,32 @@
     "fields": {}
   },
   {
+    "type": "create_object_statement",
+    "named": true,
+    "fields": {
+      "parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "eol_comment",
     "named": true,
     "fields": {}
@@ -1322,6 +1362,10 @@
         },
         {
           "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "create_object_statement",
           "named": true
         },
         {
@@ -1541,6 +1585,10 @@
           "named": true
         },
         {
+          "type": "create_object_statement",
+          "named": true
+        },
+        {
           "type": "exit_statement",
           "named": true
         },
@@ -1677,6 +1725,10 @@
         },
         {
           "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "create_object_statement",
           "named": true
         },
         {
@@ -2079,6 +2131,10 @@
           "named": true
         },
         {
+          "type": "create_object_statement",
+          "named": true
+        },
+        {
           "type": "exit_statement",
           "named": true
         },
@@ -2209,7 +2265,17 @@
     "fields": {
       "class": {
         "multiple": false,
-        "required": true,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "oref": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "name",
@@ -2581,6 +2647,10 @@
         },
         {
           "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "create_object_statement",
           "named": true
         },
         {
@@ -3176,6 +3246,10 @@
     "named": true
   },
   {
+    "type": "object",
+    "named": false
+  },
+  {
     "type": "of",
     "named": false
   },
@@ -3309,11 +3383,11 @@
   },
   {
     "type": "type",
-    "named": true
+    "named": false
   },
   {
     "type": "type",
-    "named": false
+    "named": true
   },
   {
     "type": "up",

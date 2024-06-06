@@ -27,3 +27,14 @@ raise exception type cx_class
       (parameter_binding
         formal_parameter: (name)
         actual_parameter: (name)))))
+
+==================
+raise exception using oref
+==================
+
+raise exception oref.
+
+---
+(program
+  (raise_exception_statement
+    oref: (name)))

@@ -81,3 +81,18 @@ endtry.
           (comparison_expression
             (numeric_literal)
             (numeric_literal)))))))
+
+==================
+try catch statement with catch into oref
+==================
+
+try.
+  catch cx_class into exc.
+endtry.
+
+---
+(program
+  (try_catch_statement
+    (catch_statement
+      exception: (name)
+      oref: (name))))

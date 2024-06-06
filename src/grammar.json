@@ -140,6 +140,10 @@
         {
           "type": "SYMBOL",
           "name": "append_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "create_object_statement"
         }
       ]
     },
@@ -4704,6 +4708,37 @@
           }
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "into",
+                    "flags": "i"
+                  },
+                  "named": false,
+                  "value": "into"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "oref",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "name"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "STRING",
           "value": "."
         },
@@ -5392,51 +5427,69 @@
           "value": "exception"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "type",
-            "flags": "i"
-          },
-          "named": false,
-          "value": "type"
-        },
-        {
-          "type": "FIELD",
-          "name": "class",
-          "content": {
-            "type": "SYMBOL",
-            "name": "name"
-          }
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "FIELD",
-              "name": "parameters",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "exporting",
-                      "flags": "i"
-                    },
-                    "named": false,
-                    "value": "exporting"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "type",
+                    "flags": "i"
                   },
-                  {
+                  "named": false,
+                  "value": "type"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "class",
+                  "content": {
                     "type": "SYMBOL",
-                    "name": "parameter_list"
+                    "name": "name"
                   }
-                ]
-              }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "parameters",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "ALIAS",
+                            "content": {
+                              "type": "PATTERN",
+                              "value": "exporting",
+                              "flags": "i"
+                            },
+                            "named": false,
+                            "value": "exporting"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "parameter_list"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
-              "type": "BLANK"
+              "type": "FIELD",
+              "name": "oref",
+              "content": {
+                "type": "SYMBOL",
+                "name": "name"
+              }
             }
           ]
         },
@@ -5507,6 +5560,70 @@
             "type": "SYMBOL",
             "name": "name"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "create_object_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "create",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "create"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "object",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "exporting",
+                    "flags": "i"
+                  },
+                  "named": false,
+                  "value": "exporting"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "parameters",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "parameter_list"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",

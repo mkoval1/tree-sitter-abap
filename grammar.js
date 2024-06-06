@@ -44,7 +44,8 @@ module.exports = grammar({
         $.call_function,
         $.raise_exception_statement,
         $.clear_statement,
-        $.append_statement
+        $.append_statement,
+        $.create_object_statement
       ),
 
     class_declaration: $ =>
@@ -699,6 +700,7 @@ module.exports = grammar({
       seq(
         kw("catch"),
         field("exception", $.name),
+        optional(seq(kw("into"), field("oref", $.name))),
         ".",
         optional($.catch_block)
       ),
@@ -846,9 +848,16 @@ module.exports = grammar({
       seq(
         kw("raise"),
         kw("exception"),
-        kw("type"),
-        field("class", $.name),
-        optional(field("parameters", seq(kw("exporting"), $.parameter_list))),
+        choice(
+          seq(
+            kw("type"),
+            field("class", $.name),
+            optional(
+              field("parameters", seq(kw("exporting"), $.parameter_list))
+            )
+          ),
+          field("oref", $.name)
+        ),
         "."
       ),
 
@@ -860,6 +869,15 @@ module.exports = grammar({
         field("line_spec", $.name),
         kw("to"),
         field("itab", $.name),
+        "."
+      ),
+
+    create_object_statement: $ =>
+      seq(
+        kw("create"),
+        kw("object"),
+        $.name,
+        optional(seq(kw("exporting"), field("parameters", $.parameter_list))),
         "."
       ),
 
