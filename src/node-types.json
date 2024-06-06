@@ -1,5 +1,31 @@
 [
   {
+    "type": "append_statement",
+    "named": true,
+    "fields": {
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "line_spec": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "arithmetic_expression",
     "named": true,
     "fields": {},
@@ -410,6 +436,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "append_statement",
+          "named": true
+        },
         {
           "type": "assignment",
           "named": true
@@ -1223,6 +1253,10 @@
       "required": true,
       "types": [
         {
+          "type": "append_statement",
+          "named": true
+        },
+        {
           "type": "assignment",
           "named": true
         },
@@ -1427,6 +1461,10 @@
       "required": true,
       "types": [
         {
+          "type": "append_statement",
+          "named": true
+        },
+        {
           "type": "arithmetic_expression",
           "named": true
         },
@@ -1590,6 +1628,10 @@
       "required": true,
       "types": [
         {
+          "type": "append_statement",
+          "named": true
+        },
+        {
           "type": "assignment",
           "named": true
         },
@@ -1610,6 +1652,10 @@
           "named": true
         },
         {
+          "type": "chained_field_symbol_declaration",
+          "named": true
+        },
+        {
           "type": "chained_structure_declaration",
           "named": true
         },
@@ -1626,7 +1672,27 @@
           "named": true
         },
         {
+          "type": "clear_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "exit_statement",
+          "named": true
+        },
+        {
+          "type": "field_symbol_declaration",
+          "named": true
+        },
+        {
           "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "loop_statement",
           "named": true
         },
         {
@@ -1635,6 +1701,10 @@
         },
         {
           "type": "read_table_statement",
+          "named": true
+        },
+        {
+          "type": "report_statement",
           "named": true
         },
         {
@@ -1940,6 +2010,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "append_statement",
+          "named": true
+        },
         {
           "type": "assignment",
           "named": true
@@ -2442,6 +2516,10 @@
       "required": true,
       "types": [
         {
+          "type": "append_statement",
+          "named": true
+        },
+        {
           "type": "assignment",
           "named": true
         },
@@ -2799,6 +2877,10 @@
   },
   {
     "type": "any",
+    "named": false
+  },
+  {
+    "type": "append",
     "named": false
   },
   {

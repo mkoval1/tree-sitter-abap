@@ -34,6 +34,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_implementation_statement"
+        }
+      ]
+    },
+    "_implementation_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
           "name": "variable_declaration"
         },
         {
@@ -127,6 +136,10 @@
         {
           "type": "SYMBOL",
           "name": "clear_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "append_statement"
         }
       ]
     },
@@ -1640,77 +1653,8 @@
     "method_body": {
       "type": "REPEAT1",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "variable_declaration"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "chained_variable_declaration"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "chained_structure_declaration"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "if_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "return_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "check_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "assignment"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "select_statement_obsolete"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "read_table_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "try_catch_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "write_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "chained_write_statement"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "call_method"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "call_method_static"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "call_method_instance"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "call_function"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "raise_exception_statement"
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "_implementation_statement"
       }
     },
     "class_publication": {
@@ -5518,6 +5462,51 @@
         {
           "type": "SYMBOL",
           "name": "_data_object"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "append_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "append",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "append"
+        },
+        {
+          "type": "FIELD",
+          "name": "line_spec",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "to",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "itab",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
         },
         {
           "type": "STRING",

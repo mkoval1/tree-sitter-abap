@@ -15,6 +15,11 @@ module.exports = grammar({
         $.class_publication,
         $.class_local_friend_publication,
         $.interface_declaration,
+        $._implementation_statement
+      ),
+
+    _implementation_statement: $ =>
+      choice(
         $.variable_declaration,
         $.chained_variable_declaration,
         $.chained_structure_declaration,
@@ -38,7 +43,8 @@ module.exports = grammar({
         $.call_method_instance,
         $.call_function,
         $.raise_exception_statement,
-        $.clear_statement
+        $.clear_statement,
+        $.append_statement
       ),
 
     class_declaration: $ =>
@@ -228,28 +234,7 @@ module.exports = grammar({
         "."
       ),
 
-    method_body: $ =>
-      repeat1(
-        choice(
-          $.variable_declaration,
-          $.chained_variable_declaration,
-          $.chained_structure_declaration,
-          $.if_statement,
-          $.return_statement,
-          $.check_statement,
-          $.assignment,
-          $.select_statement_obsolete,
-          $.read_table_statement,
-          $.try_catch_statement,
-          $.write_statement,
-          $.chained_write_statement,
-          $.call_method,
-          $.call_method_static,
-          $.call_method_instance,
-          $.call_function,
-          $.raise_exception_statement
-        )
-      ),
+    method_body: $ => repeat1($._implementation_statement),
 
     class_publication: $ =>
       seq(
@@ -874,7 +859,8 @@ module.exports = grammar({
         kw("append"),
         field("line_spec", $.name),
         kw("to"),
-        field("itab", $.name)
+        field("itab", $.name),
+        "."
       ),
 
     _operand: $ => choice($._escaped_operand, $.name),
