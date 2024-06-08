@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-abap",
   "version": "1.0.0",
-  "description": "Tree-Sitter Grammar for ABAP",
+  "description": "Tree Sitter ABAP",
   "main": "index.js",
   "types": "bindings/node",
   "scripts": {
@@ -25,6 +25,7 @@
     }
   },
   "devDependencies": {
+    "tree-sitter-cli": "^0.22.6",
     "prebuildify": "^6.0.0"
   },
   "files": [
@@ -38,6 +39,7 @@
   "tree-sitter": [
     {
       "scope": "source.abap",
+      "file-types": ["abap"],
       "injection-regex": "^abap$"
     }
   ]
