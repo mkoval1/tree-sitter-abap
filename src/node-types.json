@@ -1590,6 +1590,10 @@
       "required": true,
       "types": [
         {
+          "type": "field_symbol_name",
+          "named": true
+        },
+        {
           "type": "name",
           "named": true
         }

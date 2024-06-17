@@ -885,7 +885,7 @@ module.exports = grammar({
       ),
 
     include_statement: $ =>
-      seq(kw("include"), $.name, optional(seq(kw("if"), kw("found"))), "."),
+      seq(kw("include"), choice($.name, $.field_symbol_name), optional(seq(kw("if"), kw("found"))), "."),
 
     macro_include: $ =>
       seq(
