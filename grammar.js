@@ -3,7 +3,7 @@ module.exports = grammar({
 
   word: $ => $.name,
 
-  extras: $ => [/\s/, $.eol_comment, $.bol_comment],
+  extras: $ => [/\s+/, $.eol_comment, $.bol_comment],
 
   rules: {
     program: $ => repeat($._statement),
