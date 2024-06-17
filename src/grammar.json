@@ -156,6 +156,10 @@
         {
           "type": "SYMBOL",
           "name": "macro_include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "raise_statement"
         }
       ]
     },
@@ -5819,6 +5823,29 @@
           },
           "named": false,
           "value": "endfunction"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "raise_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "raise",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "raise"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
         },
         {
           "type": "STRING",

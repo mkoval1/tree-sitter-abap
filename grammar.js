@@ -48,7 +48,8 @@ module.exports = grammar({
         $.append_statement,
         $.create_object_statement,
         $.include_statement,
-        $.macro_include
+        $.macro_include,
+        $.raise_statement
       ),
 
     class_declaration: $ =>
@@ -905,6 +906,12 @@ module.exports = grammar({
       ".",
       repeat($._implementation_statement),
       kw("endfunction"),
+      "."
+    ),
+
+    raise_statement: $ => seq(
+      kw("raise"),
+      $.name,
       "."
     ),
 

@@ -545,6 +545,10 @@
           "named": true
         },
         {
+          "type": "raise_statement",
+          "named": true
+        },
+        {
           "type": "read_table_statement",
           "named": true
         },
@@ -1380,6 +1384,10 @@
           "named": true
         },
         {
+          "type": "raise_statement",
+          "named": true
+        },
+        {
           "type": "read_table_statement",
           "named": true
         },
@@ -1556,6 +1564,10 @@
         },
         {
           "type": "raise_exception_statement",
+          "named": true
+        },
+        {
+          "type": "raise_statement",
           "named": true
         },
         {
@@ -1826,6 +1838,10 @@
           "named": true
         },
         {
+          "type": "raise_statement",
+          "named": true
+        },
+        {
           "type": "read_table_statement",
           "named": true
         },
@@ -1980,6 +1996,10 @@
         },
         {
           "type": "raise_exception_statement",
+          "named": true
+        },
+        {
+          "type": "raise_statement",
           "named": true
         },
         {
@@ -2430,6 +2450,10 @@
           "named": true
         },
         {
+          "type": "raise_statement",
+          "named": true
+        },
+        {
           "type": "read_table_statement",
           "named": true
         },
@@ -2568,6 +2592,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "raise_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2958,6 +2997,10 @@
         },
         {
           "type": "raise_exception_statement",
+          "named": true
+        },
+        {
+          "type": "raise_statement",
           "named": true
         },
         {
@@ -3694,11 +3737,11 @@
   },
   {
     "type": "type",
-    "named": false
+    "named": true
   },
   {
     "type": "type",
-    "named": true
+    "named": false
   },
   {
     "type": "up",
