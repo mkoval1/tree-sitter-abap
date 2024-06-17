@@ -15,6 +15,7 @@ module.exports = grammar({
         $.class_publication,
         $.class_local_friend_publication,
         $.interface_declaration,
+        $.function_implementation,
         $._implementation_statement
       ),
 
@@ -896,6 +897,15 @@ module.exports = grammar({
       ),
 
     //_marco_parameter_list: $ => repeat1($._general_expression_position),
+
+    function_implementation: $ => seq(
+      kw("function"),
+      field("name", $.name),
+      ".",
+      repeat($._implementation_statement),
+      kw("endfunction"),
+      "."
+    ),
 
     _operand: $ => choice($._escaped_operand, $.name),
 

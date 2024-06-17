@@ -34,6 +34,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "function_implementation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_implementation_statement"
         }
       ]
@@ -5725,6 +5729,54 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "function_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "function",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "function"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_implementation_statement"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "endfunction",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "endfunction"
         },
         {
           "type": "STRING",
