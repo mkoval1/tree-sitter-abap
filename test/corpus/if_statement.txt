@@ -47,3 +47,15 @@ endif.
     (comparison_expression
       (numeric_literal)
       (numeric_literal))))
+
+==================
+comparing with initial value
+==================
+
+if a is initial.
+endif.
+
+---
+(program
+  (if_statement
+    (name)))

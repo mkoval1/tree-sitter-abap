@@ -710,6 +710,10 @@
         {
           "type": "comparison_expression",
           "named": true
+        },
+        {
+          "type": "name",
+          "named": true
         }
       ]
     }
@@ -1544,6 +1548,10 @@
         },
         {
           "type": "macro_include",
+          "named": true
+        },
+        {
+          "type": "name",
           "named": true
         },
         {
@@ -3011,7 +3019,19 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
+          "type": "field_symbol_name",
+          "named": true
+        },
+        {
           "type": "name",
+          "named": true
+        },
+        {
+          "type": "structured_data_object",
           "named": true
         },
         {
@@ -3076,6 +3096,10 @@
       "types": [
         {
           "type": "comparison_expression",
+          "named": true
+        },
+        {
+          "type": "name",
           "named": true
         }
       ]

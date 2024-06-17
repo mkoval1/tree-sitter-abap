@@ -100,3 +100,20 @@ data a type table of xyz.
     (name)
     (typing
       (type))))
+
+
+==================
+data with like structure component
+==================
+
+data a like sy-uname.
+
+---
+
+(program
+  (variable_declaration
+    (name)
+    (typing
+      (structured_data_object
+        (structure_name)
+        (component_name)))))

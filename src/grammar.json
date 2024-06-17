@@ -2363,7 +2363,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "name"
+                  "name": "_data_object"
                 }
               ]
             }
@@ -3581,6 +3581,39 @@
               {
                 "type": "SYMBOL",
                 "name": "_logical_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 5,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_operand"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "is",
+                  "flags": "i"
+                },
+                "named": false,
+                "value": "is"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "initial",
+                  "flags": "i"
+                },
+                "named": false,
+                "value": "initial"
               }
             ]
           }

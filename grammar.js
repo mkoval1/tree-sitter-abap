@@ -330,7 +330,7 @@ module.exports = grammar({
             optional(seq(kw("line"), kw("of"))),
             alias($.name, $.type)
           ),
-          seq(kw("like"), optional(seq(kw("line"), kw("of"))), $.name)
+          seq(kw("like"), optional(seq(kw("line"), kw("of"))), $._data_object)
         ),
         optional(
           seq(kw("value"), choice($.name, seq(kw("is"), kw("initial"))))
@@ -478,7 +478,8 @@ module.exports = grammar({
         prec.left(
           2,
           seq($._logical_expression, kw("and"), $._logical_expression)
-        )
+        ),
+        prec.left(5, seq($._operand, kw("is"), kw("initial")))
       ),
 
     comparison_expression: $ =>
