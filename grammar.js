@@ -45,7 +45,8 @@ module.exports = grammar({
         $.raise_exception_statement,
         $.clear_statement,
         $.append_statement,
-        $.create_object_statement
+        $.create_object_statement,
+        $.include_statement
       ),
 
     class_declaration: $ =>
@@ -880,6 +881,9 @@ module.exports = grammar({
         optional(seq(kw("exporting"), field("parameters", $.parameter_list))),
         "."
       ),
+
+    include_statement: $ =>
+      seq(kw("include"), $.name, optional(seq(kw("if"), kw("found"))), "."),
 
     _operand: $ => choice($._escaped_operand, $.name),
 

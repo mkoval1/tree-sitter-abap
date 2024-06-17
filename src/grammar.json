@@ -144,6 +144,10 @@
         {
           "type": "SYMBOL",
           "name": "create_object_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_statement"
         }
       ]
     },
@@ -5617,6 +5621,62 @@
                     "type": "SYMBOL",
                     "name": "parameter_list"
                   }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "include_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "include",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "if",
+                    "flags": "i"
+                  },
+                  "named": false,
+                  "value": "if"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "found",
+                    "flags": "i"
+                  },
+                  "named": false,
+                  "value": "found"
                 }
               ]
             },
