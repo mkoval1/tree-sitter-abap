@@ -533,6 +533,10 @@
           "named": true
         },
         {
+          "type": "macro_include",
+          "named": true
+        },
+        {
           "type": "raise_exception_statement",
           "named": true
         },
@@ -1397,6 +1401,10 @@
           "named": true
         },
         {
+          "type": "macro_include",
+          "named": true
+        },
+        {
           "type": "raise_exception_statement",
           "named": true
         },
@@ -1644,6 +1652,10 @@
           "named": true
         },
         {
+          "type": "macro_include",
+          "named": true
+        },
+        {
           "type": "name",
           "named": true
         },
@@ -1689,6 +1701,32 @@
         },
         {
           "type": "write_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macro_include",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter_list",
           "named": true
         }
       ]
@@ -1776,6 +1814,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "macro_include",
           "named": true
         },
         {
@@ -2044,7 +2086,35 @@
       "required": true,
       "types": [
         {
+          "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "attribute_access_static",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "field_symbol_name",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "numeric_literal",
+          "named": true
+        },
+        {
           "type": "parameter_binding",
+          "named": true
+        },
+        {
+          "type": "structured_data_object",
           "named": true
         }
       ]
@@ -2187,6 +2257,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "macro_include",
           "named": true
         },
         {
@@ -2710,6 +2784,10 @@
         },
         {
           "type": "loop_statement",
+          "named": true
+        },
+        {
+          "type": "macro_include",
           "named": true
         },
         {
