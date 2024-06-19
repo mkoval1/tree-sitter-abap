@@ -26,6 +26,22 @@
     }
   },
   {
+    "type": "append_statement_obsolete",
+    "named": true,
+    "fields": {
+      "itab": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "arithmetic_expression",
     "named": true,
     "fields": {},
@@ -438,6 +454,10 @@
       "types": [
         {
           "type": "append_statement",
+          "named": true
+        },
+        {
+          "type": "append_statement_obsolete",
           "named": true
         },
         {
@@ -1304,6 +1324,10 @@
           "named": true
         },
         {
+          "type": "append_statement_obsolete",
+          "named": true
+        },
+        {
           "type": "assignment",
           "named": true
         },
@@ -1452,6 +1476,10 @@
       "types": [
         {
           "type": "append_statement",
+          "named": true
+        },
+        {
+          "type": "append_statement_obsolete",
           "named": true
         },
         {
@@ -1706,6 +1734,10 @@
           "named": true
         },
         {
+          "type": "append_statement_obsolete",
+          "named": true
+        },
+        {
           "type": "arithmetic_expression",
           "named": true
         },
@@ -1916,6 +1948,10 @@
       "types": [
         {
           "type": "append_statement",
+          "named": true
+        },
+        {
+          "type": "append_statement_obsolete",
           "named": true
         },
         {
@@ -2343,6 +2379,10 @@
       "types": [
         {
           "type": "append_statement",
+          "named": true
+        },
+        {
+          "type": "append_statement_obsolete",
           "named": true
         },
         {
@@ -2893,6 +2933,10 @@
       "types": [
         {
           "type": "append_statement",
+          "named": true
+        },
+        {
+          "type": "append_statement_obsolete",
           "named": true
         },
         {
@@ -3737,11 +3781,11 @@
   },
   {
     "type": "type",
-    "named": true
+    "named": false
   },
   {
     "type": "type",
-    "named": false
+    "named": true
   },
   {
     "type": "up",

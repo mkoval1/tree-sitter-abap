@@ -9,3 +9,15 @@ append wa to itab.
   (append_statement
     line_spec: (name)
     itab: (name)))
+
+==================
+obsolete append statement
+==================
+
+append itab.
+
+---
+(program
+  (append_statement_obsolete
+    itab: (name)))
+

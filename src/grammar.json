@@ -160,6 +160,10 @@
         {
           "type": "SYMBOL",
           "name": "raise_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "append_statement_obsolete"
         }
       ]
     },
@@ -5601,6 +5605,33 @@
           },
           "named": false,
           "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "itab",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "append_statement_obsolete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "append",
+            "flags": "i"
+          },
+          "named": false,
+          "value": "append"
         },
         {
           "type": "FIELD",

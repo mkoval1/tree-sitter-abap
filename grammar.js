@@ -49,7 +49,8 @@ module.exports = grammar({
         $.create_object_statement,
         $.include_statement,
         $.macro_include,
-        $.raise_statement
+        $.raise_statement,
+        $.append_statement_obsolete
       ),
 
     class_declaration: $ =>
@@ -876,6 +877,9 @@ module.exports = grammar({
         field("itab", $.name),
         "."
       ),
+
+    append_statement_obsolete: $ =>
+      seq(kw("append"), field("itab", $.name), "."),
 
     create_object_statement: $ =>
       seq(
