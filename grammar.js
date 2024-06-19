@@ -683,7 +683,7 @@ module.exports = grammar({
 
     assignment: $ =>
       seq(
-        choice($.name, $._writeable_expression),
+        choice($._data_object, $._writeable_expression),
         "=",
         $._general_expression_position,
         "."
@@ -887,7 +887,12 @@ module.exports = grammar({
       ),
 
     include_statement: $ =>
-      seq(kw("include"), choice($.name, $.field_symbol_name), optional(seq(kw("if"), kw("found"))), "."),
+      seq(
+        kw("include"),
+        choice($.name, $.field_symbol_name),
+        optional(seq(kw("if"), kw("found"))),
+        "."
+      ),
 
     macro_include: $ =>
       seq(
@@ -900,20 +905,17 @@ module.exports = grammar({
 
     //_marco_parameter_list: $ => repeat1($._general_expression_position),
 
-    function_implementation: $ => seq(
-      kw("function"),
-      field("name", $.name),
-      ".",
-      repeat($._implementation_statement),
-      kw("endfunction"),
-      "."
-    ),
+    function_implementation: $ =>
+      seq(
+        kw("function"),
+        field("name", $.name),
+        ".",
+        repeat($._implementation_statement),
+        kw("endfunction"),
+        "."
+      ),
 
-    raise_statement: $ => seq(
-      kw("raise"),
-      $.name,
-      "."
-    ),
+    raise_statement: $ => seq(kw("raise"), $.name, "."),
 
     _operand: $ => choice($._escaped_operand, $.name),
 

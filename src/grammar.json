@@ -4654,7 +4654,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "name"
+              "name": "_data_object"
             },
             {
               "type": "SYMBOL",

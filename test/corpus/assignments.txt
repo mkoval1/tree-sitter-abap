@@ -78,3 +78,18 @@ a = 1 ** 1 * 1 + 1.
           (numeric_literal))
         (numeric_literal))
       (numeric_literal))))
+
+==================
+assignment to structure components
+==================
+
+a-b = x.
+
+---
+
+(program
+  (assignment
+    (structured_data_object
+      (structure_name)
+      (component_name))
+    (name)))
